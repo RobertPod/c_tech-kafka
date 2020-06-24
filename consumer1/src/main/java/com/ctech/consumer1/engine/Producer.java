@@ -1,4 +1,4 @@
-package com.ctech.consumer2.engine;
+package com.ctech.consumer1.engine;
 
 
 import org.slf4j.Logger;
@@ -11,13 +11,13 @@ import org.springframework.stereotype.Service;
 public class Producer {
 
     private static final Logger logger = LoggerFactory.getLogger(Producer.class);
-    private static final String TOPIC = "weather";
+    private static final String TOPIC = "alert";
 
     @Autowired
     private KafkaTemplate<String, byte[]> kafkaTemplate;
 
     public void sendMessage(byte [] message) {
-        logger.info(String.format("#### -> Producing serialized message -> %s", message));
+        logger.info(String.format("#### -> Producing Topic Alert serialized message -> %s", message));
         this.kafkaTemplate.send(TOPIC, message);
     }
 }

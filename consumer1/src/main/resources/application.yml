@@ -1,5 +1,5 @@
 server:
-   port: 8001
+   port: 8003
 spring:
   kafka:
     consumer:
@@ -8,3 +8,7 @@ spring:
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
+    producer:
+        bootstrap-servers: localhost:9093
+        key-serializer: org.apache.kafka.common.serialization.StringSerializer
+        value-serializer: org.apache.kafka.common.serialization.ByteArraySerializer

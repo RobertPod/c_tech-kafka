@@ -1,0 +1,1 @@
+{"type":"record","name":"Alert","namespace":"com.ctech.consumer1","fields":[{"name":"message","type":"string"}]}

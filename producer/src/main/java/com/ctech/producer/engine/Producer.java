@@ -17,7 +17,7 @@ public class Producer {
     private KafkaTemplate<String, byte[]> kafkaTemplate;
 
     public void sendMessage(byte [] message) {
-        logger.info(String.format("#### -> Producing serialized message -> %s", message));
+        logger.info(String.format("#### -> Producing serialized message for Weather Topic from Producer-> %s", message));
         this.kafkaTemplate.send(TOPIC, message);
     }
 }
