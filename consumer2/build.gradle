@@ -29,8 +29,8 @@ dependencies {
 apply plugin: "com.commercehub.gradle.plugin.avro-base"
 
 def generatedResources = "generated"
-def moveToDirectory = "src/main/java/com/ctech/consumer/"
-def generatedResourcesFullPath = generatedResources + "/com/ctech/kafka/"
+def moveToDirectory = "src/main/java/com/ctech/"
+def generatedResourcesFullPath = generatedResources + "/com/ctech/consumer2"
 
 task generateAvro( type: com.commercehub.gradle.plugin.avro.GenerateAvroJavaTask) {
 	source("src/avro/")

@@ -1,6 +1,7 @@
-package com.ctech.producer.engine;
+package com.ctech.consumer2.engine;
 
-import com.ctech.producer.City;
+
+import com.ctech.consumer2.City;
 import org.apache.avro.io.DatumReader;
 import org.apache.avro.io.Decoder;
 import org.apache.avro.io.DecoderFactory;
@@ -16,9 +17,9 @@ import java.io.IOException;
 @Service
 public class Consumer {
 
-    private final Logger logger = LoggerFactory.getLogger(Producer.class);
+    private final Logger logger = LoggerFactory.getLogger(Consumer.class);
 
-    @KafkaListener(topics = "weather", groupId = "consumer_spring")
+    @KafkaListener(topics = "weather", groupId = "consumer-2")
     public void consume(byte [] message) throws IOException {
         final Decoder decoder = DecoderFactory.get().binaryDecoder(new ByteArrayInputStream(message), null);
         DatumReader<City> reader = new SpecificDatumReader<>(City.class);
