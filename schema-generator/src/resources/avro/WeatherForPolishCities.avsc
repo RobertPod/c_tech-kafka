@@ -1,0 +1,1 @@
+{"type":"record","name":"City","namespace":"com.ctech.producer","fields":[{"name":"cityname","type":"string"},{"name":"voivodeship","type":"string"},{"name":"weatherDatas","type":{"type":"array","items":{"type":"record","name":"WeatherData","fields":[{"name":"temperature","type":"string"},{"name":"pressure","type":"string"},{"name":"message","type":"string"}]}},"default":[]}]}

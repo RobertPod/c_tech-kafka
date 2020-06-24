@@ -1,0 +1,65 @@
+plugins {
+	id 'org.springframework.boot' version '2.3.1.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+	id 'java'
+	id "com.commercehub.gradle.plugin.avro-base" version "0.9.1"
+}
+
+group = 'com.ctech'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '14'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.kafka:spring-kafka'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+	testImplementation 'org.springframework.kafka:spring-kafka-test'
+	compile 'org.apache.avro:avro:1.9.2'
+}
+
+apply plugin: "com.commercehub.gradle.plugin.avro-base"
+
+def generatedResources = "generated"
+def moveToDirectory = "src/main/java/com/ctech/"
+def generatedResourcesFullPath = generatedResources + "/com/ctech/producer"
+
+task generateAvro( type: com.commercehub.gradle.plugin.avro.GenerateAvroJavaTask) {
+	source("src/avro/")
+	outputDir = file(generatedResources)
+}
+
+task copyAvro(type: Copy) {
+	from(generatedResourcesFullPath)
+	include("*.java")
+	into(moveToDirectory)
+}
+
+task moveAvro() {
+	doLast {
+		ant.move file: generatedResourcesFullPath,
+				todir: moveToDirectory
+	}
+}
+
+task deleteGeneratedSources(type: Delete) {
+	delete generatedResources
+}
+
+
+task generateMoveAvroAndClean {
+	dependsOn 'generateAvro'
+	dependsOn 'moveAvro'
+	dependsOn 'deleteGeneratedSources'
+	tasks.findByName('moveAvro').mustRunAfter 'generateAvro'
+	tasks.findByName('deleteGeneratedSources').mustRunAfter 'moveAvro'
+}
+
+test {
+	useJUnitPlatform()
+}
